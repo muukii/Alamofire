@@ -577,24 +577,25 @@ open class UploadRequest: DataRequest {
 #if !os(watchOS)
 
 /// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
-open class StreamRequest: Request {
-    enum Streamable: TaskConvertible {
-        case stream(hostName: String, port: Int)
-        case netService(NetService)
-
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let task: URLSessionTask
-
-            switch self {
-            case let .stream(hostName, port):
-                task = queue.syncResult { session.streamTask(withHostName: hostName, port: port) }
-            case let .netService(netService):
-                task = queue.syncResult { session.streamTask(with: netService) }
+    @available(iOS 9.0, *)
+    open class StreamRequest: Request {
+        enum Streamable: TaskConvertible {
+            case stream(hostName: String, port: Int)
+            case netService(NetService)
+            
+            func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+                let task: URLSessionTask
+                
+                switch self {
+                case let .stream(hostName, port):
+                    task = queue.syncResult { session.streamTask(withHostName: hostName, port: port) }
+                case let .netService(netService):
+                    task = queue.syncResult { session.streamTask(with: netService) }
+                }
+                
+                return task
             }
-
-            return task
         }
     }
-}
 
 #endif

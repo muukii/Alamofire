@@ -708,6 +708,7 @@ open class SessionManager {
     /// - parameter port:     The port of the server to connect to.
     ///
     /// - returns: The created `StreamRequest`.
+    @available(iOSApplicationExtension 9.0, *)
     @discardableResult
     open func stream(withHostName hostName: String, port: Int) -> StreamRequest {
         return stream(.stream(hostName: hostName, port: port))
@@ -722,6 +723,7 @@ open class SessionManager {
     /// - parameter netService: The net service used to identify the endpoint.
     ///
     /// - returns: The created `StreamRequest`.
+    @available(iOSApplicationExtension 9.0, *)
     @discardableResult
     open func stream(with netService: NetService) -> StreamRequest {
         return stream(.netService(netService))
@@ -729,6 +731,7 @@ open class SessionManager {
 
     // MARK: Private - Stream Implementation
 
+    @available(iOSApplicationExtension 9.0, *)
     private func stream(_ streamable: StreamRequest.Streamable) -> StreamRequest {
         do {
             let task = try streamable.task(session: session, adapter: adapter, queue: queue)
@@ -744,6 +747,7 @@ open class SessionManager {
         }
     }
 
+    @available(iOSApplicationExtension 9.0, *)
     private func stream(failedWith error: Error) -> StreamRequest {
         let stream = StreamRequest(session: session, requestTask: .stream(nil, nil), error: error)
         if startRequestsImmediately { stream.resume() }
