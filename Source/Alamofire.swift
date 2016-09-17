@@ -434,6 +434,7 @@ public func upload(
 /// - parameter port:     The port of the server to connect to.
 ///
 /// - returns: The created `StreamRequest`.
+    @available(iOSApplicationExtension 9.0, *)
 @discardableResult
 public func stream(withHostName hostName: String, port: Int) -> StreamRequest {
     return SessionManager.default.stream(withHostName: hostName, port: port)
@@ -449,6 +450,7 @@ public func stream(withHostName hostName: String, port: Int) -> StreamRequest {
 ///
 /// - returns: The created `StreamRequest`.
 @discardableResult
+    @available(iOSApplicationExtension 9.0, *)
 public func stream(with netService: NetService) -> StreamRequest {
     return SessionManager.default.stream(with: netService)
 }
